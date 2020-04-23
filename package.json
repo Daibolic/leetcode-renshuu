@@ -1,0 +1,23 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "babel-node spec/run.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^4.0.2",
+    "jasmine": "^3.5.0",
+    "lodash": "^4.17.15"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}
