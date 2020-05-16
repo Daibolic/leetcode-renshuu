@@ -25,7 +25,7 @@ class TreeNode
         {
             if (q[0] == null)
             {
-                results.push('null');
+                results.push('x');
             }
             else
             {
@@ -34,11 +34,6 @@ class TreeNode
                 q.push(q[0].right);
             }
             q.shift();
-        }
-
-        while (results[results.length - 1] == 'null')
-        {
-            results.pop();
         }
         return '[' + results.toString() + ']';
     }
@@ -52,35 +47,24 @@ class TreeNode
     static deserialize(data)
     {
         let elements = data.replace(/\s/g, '').substring(1, data.length - 1).split(',');
-        let nodes = _.map(elements, (element) => 
-        {
-            if (element == 'null')
-            {
-                return null;
-            }
-            else
-            {
-                return new TreeNode(parseInt(element));
-            }
-        });
-        
-        for (let i = 0; i < nodes.length; i++)
-        {
-            if (nodes[i] != null)
-            {
-                let leftIndex = i * 2 + 1;
-                let rightIndex = i * 2 + 2;
-                if (leftIndex < nodes.length)
-                {
-                    nodes[i].left = nodes[leftIndex];
-                }
-                if (rightIndex < nodes.length)
-                {
-                    nodes[i].right = nodes[rightIndex];
-                }
+        let head = elements[0] == 'x' ? null : new TreeNode(parseInt(elements[0]));
+        elements.shift();
+        let q = [];
+        q.push(head);
+        while (q.length != 0) {
+            let parent = q.shift();
+            if (parent != null) {
+                let leftStr = elements.shift();
+                let left = leftStr == 'x' ? null : new TreeNode(parseInt(leftStr));
+                let rightStr = elements.shift();
+                let right = rightStr == 'x' ? null : new TreeNode(parseInt(rightStr));
+                parent.left = left;
+                parent.right = right;
+                q.push(left);
+                q.push(right);
             }
         }
-        return nodes.length > 0 ? nodes[0] : null;
+        return head;
     }
 }
 
